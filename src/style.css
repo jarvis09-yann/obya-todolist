@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://unpkg.com/reset-css@5.0.1/reset.css");
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --c-bg: #fff8f3;
+  --c-text: #405d72;
+  --c-dark: #758694;
+  --c-light: #f7e7dc;
+}
+
+body {
+  font-family: "Noto Sans", sans-serif;
+  background-color: var(--c-bg);
+  color: var(--c-text);
+  display: grid;
+  grid-template-columns: clamp(200px, 20%, 250px) 5fr;
+  min-height: 100vh;
+  width: 100vw !important;
+}
+
+aside {
+  background-color: var(--c-text);
+  color: var(--c-bg);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+aside hr {
+  margin: 16px;
+}
+
+.top-bar {
+  display: grid;
+  grid-template-columns: 1fr 32px;
+  margin-bottom: 1rem;
+}
+
+#sidebar-collapse {
+  cursor: pointer;
+  grid-area: 1 / 2 / 1 / 3;
+}
+
+.user-profile {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  grid-template-rows: 16px 1fr;
+  place-items: center start;
+  gap: 8px;
+  row-gap: 2px;
+  grid-area: 1 / 1 / 1 / 1;
+}
+
+.user-profile p:first-of-type {
+  font-size: 12px;
+  color: var(--c-light);
+  place-self: end start;
+}
+
+.user-profile p:last-of-type {
+  place-self: start start;
+}
+
+.user-profile box-icon {
+  grid-area: 1 / 1 / 3 / 1;
+  justify-self: center;
+  align-self: center;
+}
+
+.sidebar-item {
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  place-items: center start;
+  border-radius: 8px;
+  width: 100%;
+  height: 48px;
+  background-color: var(--c-dark);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.sidebar-item box-icon {
+  place-self: center;
+}
+
+.sidebar-item:hover {
+  transition: 0.2s ease-in-out;
+  filter: brightness(1.2);
+}
+
+.sidebar-item:active {
+  transform: translateY(1px);
+}
+
+.sidebar-title {
+  display: flex;
+  justify-content: space-between;
+  height: 64px;
+}
+
+aside > * {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+.content {
+  padding: 1rem;
+  width: 100%;
+}
+
+.todolist-container {
+  display: grid;
+  grid-auto-rows: 64px;
+  gap: 32px;
+}
+
+.priority {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.priority-1 {
+  background-color: green;
+}
+
+.priority-2 {
+  background-color: orange;
+}
+
+.priority-3 {
+  background-color: red;
+}
+
+.todolist-item {
+  display: grid;
+  gap: 8px;
+  place-items: center;
+  grid-template-columns: 32px auto 5fr auto;
+  border-bottom: 2px solid var(--c-dark);
+}
+
+.todolist-item h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 0 8px;
+}
+
+.todolist-item input[type="checkbox"] {
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+  outline: none;
+  border-radius: 50%;
+}
+
+.todolist-item p {
+  width: 100%;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  font-size: 18px;
+}
+
+.todolist-item > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
+  gap: 8px;
+}
+
+.action-buttons box-icon {
+  cursor: pointer;
+}
