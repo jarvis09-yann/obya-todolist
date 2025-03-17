@@ -1,4 +1,5 @@
 import "./style.css";
+import "./todos.js";
 
 const sidebarCollapse = document.querySelector("#sidebar-collapse");
 const todolistContainer = document.querySelector(".todolist-container");
