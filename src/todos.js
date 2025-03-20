@@ -4,12 +4,14 @@ export class TodoList {
   };
   static #currentID = -1;
 
+  // Mostly used for debugging, probably will be removed sooner or later
   static getAll() {
     return this.#content;
   }
 
   static get(id, group = "") {
     if (group != "") {
+      console.log(group);
       return this.#content[group];
     }
     for (let g in this.#content) {
@@ -62,34 +64,3 @@ export class TodoList {
     return this.#currentID;
   }
 }
-
-TodoList.add(
-  "Work!!!",
-  "Lorem Ipsum dolor sit amet",
-  false,
-  new Date("March 17 2025 13:30"),
-  3
-);
-TodoList.add(
-  "A title",
-  "A description",
-  false,
-  new Date("March 17 2025 13:30"),
-  3,
-  "acustmgroup"
-);
-
-for (let i = 0; i <= 10; i++) {
-  TodoList.add(
-    `Item ${i}`,
-    "Lorem Ipsum dolor sit amet",
-    false,
-    new Date("March 17 2025 13:30"),
-    3
-  );
-}
-
-console.log(TodoList.remove(0));
-console.log(TodoList.get(0));
-console.log(TodoList.get(1));
-console.log(TodoList.getAll());
