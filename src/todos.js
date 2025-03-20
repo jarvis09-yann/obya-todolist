@@ -11,7 +11,6 @@ export class TodoList {
 
   static get(id, group = "") {
     if (group != "") {
-      console.log(group);
       return this.#content[group];
     }
     for (let g in this.#content) {
@@ -51,7 +50,6 @@ export class TodoList {
       for (let i in this.#content[g]) {
         if (this.#content[g][i].id == itemID) {
           this.#content[g].splice(i, 1);
-          console.log(g);
           return 1;
         }
       }
