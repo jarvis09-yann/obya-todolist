@@ -1,4 +1,4 @@
-class TodoList {
+export class TodoList {
   static #content = {
     default: [],
   };
@@ -8,32 +8,53 @@ class TodoList {
     return this.#content;
   }
 
-  static get(id, group) {
-    if (group != undefined) {
+  static get(id, group = "") {
+    if (group != "") {
       return this.#content[group];
     }
-    for (let item in this.#content) {
-      for (let val in item) {
-        if (this.#content[item][val].id == id) {
-          return this.#content[item][val];
+    for (let g in this.#content) {
+      for (let i in this.#content[g]) {
+        if (this.#content[g][i].id == id) {
+          return this.#content[g][i];
         }
       }
     }
   }
 
-  static add(item, group = "default") {
+  static add(title, description, isDone, dueDate, priority, group = "default") {
+    let todoItem = {
+      title: title,
+      description: description,
+      isDone: isDone,
+      dueDate: dueDate,
+      priority: priority,
+      id: TodoList.getID(),
+    };
     if (!this.#content[group]) {
       this.#content[group] = [];
     }
-    this.#content[group].push(item);
+    this.#content[group].push(todoItem);
   }
 
   static set(group, itemID, field, newVal) {
     this.#content[group][itemID][field] = newVal;
   }
 
-  static remove(group, itemID) {
-    this.#content[group].splice(itemID, 1);
+  static remove(itemID, group = "") {
+    if (group != "") {
+      delete this.#content[group];
+    }
+    for (let g in this.#content) {
+      // repeated code but dont really care :)
+      for (let i in this.#content[g]) {
+        if (this.#content[g][i].id == itemID) {
+          this.#content[g].splice(i, 1);
+          console.log(g);
+          return 1;
+        }
+      }
+    }
+    return 0;
   }
 
   static getID() {
@@ -42,41 +63,33 @@ class TodoList {
   }
 }
 
-class TodoItem {
-  constructor(title, description, isDone, dueDate, priority) {
-    this.title = title;
-    this.description = description;
-    this.isDone = isDone;
-    this.dueDate = dueDate;
-    this.priority = priority;
-    this.id = TodoList.getID();
-  }
-}
-
-let x = new TodoItem(
+TodoList.add(
   "Work!!!",
   "Lorem Ipsum dolor sit amet",
   false,
   new Date("March 17 2025 13:30"),
   3
 );
-console.log(x);
-TodoList.add(x, "default");
+TodoList.add(
+  "A title",
+  "A description",
+  false,
+  new Date("March 17 2025 13:30"),
+  3,
+  "acustmgroup"
+);
 
 for (let i = 0; i <= 10; i++) {
   TodoList.add(
-    {
-      title: "Work!!!",
-      description: "Lorem Ipsum dolor sit amet",
-      isDone: false,
-      dueDate: new Date("2025-03-17T12:30:00.000Z"),
-      priority: 3,
-      id: TodoList.getID(),
-    },
-    "notdefault"
+    `Item ${i}`,
+    "Lorem Ipsum dolor sit amet",
+    false,
+    new Date("March 17 2025 13:30"),
+    3
   );
 }
 
-console.log(TodoList.get(2));
+console.log(TodoList.remove(0));
+console.log(TodoList.get(0));
+console.log(TodoList.get(1));
 console.log(TodoList.getAll());
-TodoList.remove("default", 0);
