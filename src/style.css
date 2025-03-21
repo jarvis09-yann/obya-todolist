@@ -19,7 +19,8 @@ body {
   display: grid;
   grid-template-columns: clamp(200px, 20%, 250px) 5fr;
   min-height: 100vh;
-  width: 100vw !important;
+  max-width: 100%;
+  /* overflow-x: hidden; */
 }
 
 aside {
@@ -122,14 +123,13 @@ aside > * {
 .todolist-container {
   display: grid;
   grid-auto-rows: 64px;
-  gap: 32px;
+  place-items: center stretch;
 }
 
 .priority {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  cursor: pointer;
 }
 
 .priority-1 {
@@ -145,11 +145,17 @@ aside > * {
 }
 
 .todolist-item {
+  place-items: center start;
   display: grid;
-  gap: 8px;
-  place-items: center;
-  grid-template-columns: 32px auto 5fr auto;
-  border-bottom: 2px solid var(--c-dark);
+  grid-template-columns: 32px 1fr 3fr 64px;
+  height: 100%;
+  width: 100%;
+  padding: 0 32px;
+}
+
+.todolist-item:nth-child(even) {
+  background-color: var(--c-light);
+  border-radius: 4px;
 }
 
 .todolist-item h2 {
@@ -182,6 +188,6 @@ aside > * {
   gap: 8px;
 }
 
-.action-buttons box-icon {
-  cursor: pointer;
+.action-buttons > * {
+  cursor: pointer !important;
 }
