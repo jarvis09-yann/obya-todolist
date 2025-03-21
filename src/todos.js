@@ -35,10 +35,19 @@ export class TodoList {
       this.#content[group] = [];
     }
     this.#content[group].push(todoItem);
+    this.save();
   }
 
-  static set(group, itemID, field, newVal) {
-    this.#content[group][itemID][field] = newVal;
+  static set(itemID, field, newVal) {
+    for (let g in this.#content) {
+      // repeated code but dont really care :)
+      for (let i in this.#content[g]) {
+        if (this.#content[g][i].id == itemID) {
+          this.#content[g][i][field] = newVal;
+        }
+      }
+    }
+    this.save();
   }
 
   static remove(itemID, group = "") {
@@ -50,15 +59,33 @@ export class TodoList {
       for (let i in this.#content[g]) {
         if (this.#content[g][i].id == itemID) {
           this.#content[g].splice(i, 1);
-          return 1;
         }
       }
     }
-    return 0;
+    this.save();
   }
 
   static getID() {
     this.#currentID += 1;
+    this.save();
     return this.#currentID;
+  }
+
+  static save() {
+    localStorage.setItem("todoList", JSON.stringify(this.#content));
+    localStorage.setItem("currentID", JSON.stringify(this.#currentID));
+    console.log("saved");
+  }
+
+  static load() {
+    if (
+      !localStorage.getItem("todoList") ||
+      !localStorage.getItem("currentID")
+    ) {
+      return;
+    }
+    this.#content = JSON.parse(localStorage.getItem("todoList"));
+    this.#currentID = JSON.parse(localStorage.getItem("currentID"));
+    console.log("loaded");
   }
 }
